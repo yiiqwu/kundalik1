@@ -166,3 +166,13 @@ def delete_grade(grade_id: int):
         db.commit()
     db.close()
     return {"message": "Grade deleted"}
+
+@app.delete("/classes/{class_id}")
+def delete_class(class_id: int):
+    db = SessionLocal()
+    classes = db.query(StudentModel).filter(ClassModel.id == class_id).first()
+    if class_id is not None:
+        db.delete(classes)
+        db.commit()
+    db.close()
+    return {"message": "Class deleted"}
